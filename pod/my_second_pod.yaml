@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysecondpod
+  labels:
+    name: mysecondpod
+spec:
+  containers:
+  - name: mysecondpod
+    image: nginx
+    app: web
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: degreecalculator
+  labels:
+    app: degreecalculator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: degreecalculator
+  template:
+    metadata:
+      labels:
+        app: degreecalculator
+    spec:
+      containers:
+      - name: degreecalculator
+        image: geninhocell/degree_calculator:1.0.12-staging
+        resources:
+          limits:
+            memory: "60Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80

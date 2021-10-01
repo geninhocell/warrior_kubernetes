@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: degreecalculatorapi
+  labels:
+    app: degreecalculatorapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: degreecalculatorapi
+  template:
+    metadata:
+      labels:
+        app: degreecalculatorapi
+    spec:
+      containers:
+      - name: degreecalculatorapi
+        image: geninhocell/degree_calculator_api:1.0.9-staging
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: questcode
+              key: NODE_ENV
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: questcode
+              key: API_URL
+        - name: API_VERSION
+          value: "1.0.9-staging"
+        - name: PEM_PUBLIC
+          valueFrom:
+            secretKeyRef:
+              name: questcode
+              key: PEM_PUBLIC
+        resources:
+          limits:
+            memory: "24Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 3332
